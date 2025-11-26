@@ -1,0 +1,673 @@
+================================================================================
+        PRESENTASI PROJECT LARAVEL - SISTEM INFORMASI PELANGGARAN 
+                    DAN PRESTASI SISWA (SIPPRES)
+================================================================================
+
+================================================================================
+1. INFORMASI PROJECT
+================================================================================
+
+Nama Aplikasi    : SIPPRES (Sistem Informasi Pelanggaran dan Prestasi Siswa)
+Framework        : Laravel 12.0
+PHP Version      : 8.2+
+Database         : MySQL (sippres)
+Template Admin   : Flexy Bootstrap Lite
+PDF Generator    : DomPDF (barryvdh/laravel-dompdf)
+
+Deskripsi:
+Sistem informasi berbasis web untuk mengelola data pelanggaran dan prestasi 
+siswa di sekolah dengan fitur multi-role, notifikasi otomatis, monitoring 
+sanksi, bimbingan konseling, dan laporan lengkap.
+
+================================================================================
+2. FITUR UTAMA SISTEM
+================================================================================
+
+A. MANAJEMEN PELANGGARAN
+   ✓ Input pelanggaran siswa dengan foto bukti
+   ✓ Kategori pelanggaran dengan poin
+   ✓ Verifikasi pelanggaran oleh kesiswaan
+   ✓ Sanksi otomatis berdasarkan akumulasi poin
+   ✓ Monitoring pelaksanaan sanksi
+   ✓ Notifikasi email ke orang tua
+
+B. MANAJEMEN PRESTASI
+   ✓ Input prestasi siswa (akademik & non-akademik)
+   ✓ Kategori prestasi dengan poin reward
+   ✓ Verifikasi prestasi
+   ✓ Pengurangan poin pelanggaran dengan poin prestasi
+   ✓ Laporan prestasi per siswa
+
+C. BIMBINGAN KONSELING
+   ✓ Pencatatan sesi bimbingan konseling
+   ✓ Riwayat bimbingan per siswa
+   ✓ Catatan perkembangan siswa
+   ✓ Laporan bimbingan konseling
+
+D. MONITORING & LAPORAN
+   ✓ Dashboard statistik real-time
+   ✓ Monitoring pelanggaran per kelas
+   ✓ Monitoring sanksi siswa
+   ✓ Laporan PDF & Excel
+   ✓ Grafik data pelanggaran & prestasi
+   ✓ Rekap bulanan
+
+E. NOTIFIKASI SISTEM
+   ✓ Notifikasi pelanggaran ke orang tua
+   ✓ Notifikasi sanksi
+   ✓ Email notification otomatis
+   ✓ In-app notification
+
+================================================================================
+3. ROLE & HAK AKSES PENGGUNA
+================================================================================
+
+┌─────────────────┬──────────────────────────────────────────────────────────┐
+│ ROLE            │ HAK AKSES & FITUR                                        │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ ADMIN           │ - Kelola semua data master (guru, siswa, kelas, jurusan)│
+│                 │ - Kelola user & role                                     │
+│                 │ - Kelola tahun ajaran                                    │
+│                 │ - Kelola kategori pelanggaran & sanksi                   │
+│                 │ - View semua laporan                                     │
+│                 │ - Export data (PDF, Excel)                               │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ KESISWAAN       │ - Input pelanggaran & prestasi                           │
+│                 │ - Verifikasi pelanggaran & prestasi                      │
+│                 │ - Monitoring pelanggaran siswa                           │
+│                 │ - Generate laporan                                       │
+│                 │ - Export PDF                                             │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ GURU            │ - Input pelanggaran siswa                                │
+│                 │ - View data siswa                                        │
+│                 │ - View riwayat pelanggaran                               │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ WALI KELAS      │ - Input pelanggaran siswa di kelasnya                    │
+│                 │ - Monitoring sanksi siswa                                │
+│                 │ - View data siswa di kelasnya                            │
+│                 │ - Export laporan kelas (PDF)                             │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ KONSELOR        │ - Input bimbingan konseling                              │
+│                 │ - View riwayat bimbingan siswa                           │
+│                 │ - Monitoring siswa bermasalah                            │
+│                 │ - Laporan bimbingan (PDF, Excel)                         │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ KEPALA SEKOLAH  │ - Dashboard monitoring keseluruhan                       │
+│                 │ - View semua data pelanggaran & prestasi                 │
+│                 │ - Monitoring sanksi                                      │
+│                 │ - Export laporan lengkap (PDF, Excel)                    │
+│                 │ - Analisis data & grafik                                 │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ SISWA           │ - View profil pribadi                                    │
+│                 │ - View riwayat pelanggaran sendiri                       │
+│                 │ - View riwayat prestasi sendiri                          │
+│                 │ - View sanksi yang diterima                              │
+│                 │ - Download laporan pribadi (PDF)                         │
+├─────────────────┼──────────────────────────────────────────────────────────┤
+│ ORANG TUA       │ - View data anak (profil, kelas)                         │
+│                 │ - View pelanggaran anak                                  │
+│                 │ - View prestasi anak                                     │
+│                 │ - View sanksi anak                                       │
+│                 │ - Download laporan anak (PDF)                            │
+│                 │ - Terima notifikasi email                                │
+└─────────────────┴──────────────────────────────────────────────────────────┘
+
+================================================================================
+4. STRUKTUR DATABASE
+================================================================================
+
+TABEL UTAMA:
+├── users                      - Data user & autentikasi
+├── guru                       - Data guru
+├── siswa                      - Data siswa (dengan foto profil)
+├── kelas                      - Data kelas
+├── jurusan                    - Data jurusan
+├── tahun_ajaran               - Data tahun ajaran
+├── jenis_pelanggaran          - Kategori pelanggaran & poin
+├── jenis_sanksi               - Kategori sanksi
+├── jenis_prestasi             - Kategori prestasi & poin
+├── pelanggarans               - Data pelanggaran (dengan foto bukti)
+├── sanksi                     - Data sanksi siswa
+├── pelaksanaan_sanksi         - Monitoring pelaksanaan sanksi
+├── prestasi                   - Data prestasi siswa
+├── bimbingan_konselings       - Data bimbingan konseling
+├── monitoring_pelanggarans    - Monitoring pelanggaran
+├── verifikasi_data            - Verifikasi pelanggaran & prestasi
+└── notifications              - Notifikasi sistem
+
+RELASI PENTING:
+- Siswa -> Kelas (Many to One)
+- Siswa -> User (One to One) untuk login
+- Pelanggaran -> Siswa (Many to One)
+- Pelanggaran -> Jenis Pelanggaran (Many to One)
+- Sanksi -> Pelanggaran (One to One)
+- Prestasi -> Siswa (Many to One)
+- Bimbingan Konseling -> Siswa (Many to One)
+
+================================================================================
+5. FITUR UNGGULAN
+================================================================================
+
+A. SISTEM POIN OTOMATIS
+   - Akumulasi poin pelanggaran otomatis
+   - Sanksi otomatis berdasarkan total poin:
+     * 0-25 poin   : Teguran Lisan
+     * 26-50 poin  : Teguran Tertulis
+     * 51-75 poin  : Panggilan Orang Tua
+     * 76-100 poin : Skorsing
+     * >100 poin   : Dikembalikan ke Orang Tua
+   - Poin prestasi mengurangi poin pelanggaran
+
+B. UPLOAD FOTO BUKTI
+   - Upload foto bukti pelanggaran
+   - Upload foto profil siswa
+   - Validasi format & ukuran file
+   - Storage terorganisir
+
+C. VERIFIKASI DATA
+   - Verifikasi pelanggaran oleh kesiswaan
+   - Status: Pending, Disetujui, Ditolak
+   - Catatan verifikasi
+   - Riwayat verifikasi
+
+D. NOTIFIKASI EMAIL
+   - Email otomatis ke orang tua saat pelanggaran
+   - Email notifikasi sanksi
+   - Template email profesional
+   - Queue system untuk performa
+
+E. LAPORAN LENGKAP
+   - Laporan PDF dengan header & footer
+   - Export Excel untuk analisis
+   - Filter berdasarkan:
+     * Tanggal
+     * Kelas
+     * Jenis pelanggaran
+     * Status sanksi
+   - Grafik & statistik visual
+
+F. DASHBOARD INTERAKTIF
+   - Statistik real-time
+   - Grafik pelanggaran per bulan
+   - Top 10 siswa bermasalah
+   - Monitoring sanksi aktif
+   - Widget informatif per role
+
+================================================================================
+6. TEKNOLOGI & LIBRARY
+================================================================================
+
+BACKEND:
+├── Laravel 12.0              - PHP Framework
+├── PHP 8.2+                  - Programming Language
+├── MySQL                     - Database
+├── Eloquent ORM              - Database Management
+├── Laravel Middleware        - Role-based Access Control
+├── Laravel Mail              - Email Notification
+├── Laravel Queue             - Background Jobs
+└── DomPDF                    - PDF Generation
+
+FRONTEND:
+├── Blade Template Engine     - View Rendering
+├── Bootstrap 5               - CSS Framework
+├── jQuery                    - JavaScript Library
+├── DataTables                - Table Management
+├── Chart.js                  - Data Visualization
+├── Select2                   - Enhanced Select Box
+└── SweetAlert2               - Beautiful Alerts
+
+TOOLS:
+├── Composer                  - PHP Dependency Manager
+├── NPM                       - Node Package Manager
+├── Git                       - Version Control
+└── XAMPP                     - Local Development Server
+
+================================================================================
+7. STRUKTUR FOLDER PROJECT
+================================================================================
+
+UjikomAbi/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/          - Controller untuk Admin
+│   │   │   ├── Kesiswaan/      - Controller untuk Kesiswaan
+│   │   │   ├── Guru/           - Controller untuk Guru
+│   │   │   ├── WaliKelas/      - Controller untuk Wali Kelas
+│   │   │   ├── Konselor/       - Controller untuk Konselor
+│   │   │   ├── Kepsek/         - Controller untuk Kepala Sekolah
+│   │   │   ├── Siswa/          - Controller untuk Siswa
+│   │   │   └── Ortu/           - Controller untuk Orang Tua
+│   │   └── Middleware/         - Custom Middleware
+│   ├── Models/                 - Eloquent Models
+│   ├── Mail/                   - Email Templates
+│   └── Notifications/          - Notification Classes
+├── database/
+│   ├── migrations/             - Database Migrations
+│   └── seeders/                - Database Seeders
+├── public/
+│   ├── assets/                 - CSS, JS, Images
+│   └── uploads/                - User Uploads
+│       ├── siswa/              - Foto Siswa
+│       └── pelanggaran/        - Foto Bukti Pelanggaran
+├── resources/
+│   └── views/
+│       ├── admin/              - Views Admin
+│       ├── kesiswaan/          - Views Kesiswaan
+│       ├── guru/               - Views Guru
+│       ├── wali_kelas/         - Views Wali Kelas
+│       ├── konselor/           - Views Konselor
+│       ├── kepsek/             - Views Kepala Sekolah
+│       ├── siswa/              - Views Siswa
+│       ├── ortu/               - Views Orang Tua
+│       ├── auth/               - Views Login/Register
+│       ├── emails/             - Email Templates
+│       └── layout/             - Layout Templates
+└── routes/
+    └── web.php                 - Route Definitions
+
+================================================================================
+8. CARA INSTALASI
+================================================================================
+
+REQUIREMENTS:
+- PHP >= 8.2
+- MySQL/MariaDB
+- Composer
+- Node.js & NPM
+- XAMPP/WAMP/LARAGON
+
+LANGKAH INSTALASI:
+
+1. Clone/Download Project
+   cd c:\xampp\htdocs\UjikomAbi
+
+2. Install Dependencies
+   composer install
+   npm install
+
+3. Setup Environment
+   - Copy .env.example ke .env
+   - Sesuaikan konfigurasi database:
+     DB_DATABASE=sippres
+     DB_USERNAME=root
+     DB_PASSWORD=
+
+4. Generate Application Key
+   php artisan key:generate
+
+5. Setup Database
+   - Buat database 'sippres' di MySQL
+   - Import file: public/sippres.sql
+   ATAU
+   - Run migrations: php artisan migrate
+   - Run seeders: php artisan db:seed
+
+6. Setup Storage
+   php artisan storage:link
+
+7. Build Assets
+   npm run build
+
+8. Run Application
+   php artisan serve
+   
+9. Akses Aplikasi
+   http://localhost:8000
+
+================================================================================
+9. DATA LOGIN DEFAULT
+================================================================================
+
+ADMIN:
+Username: admin@sippres.com
+Password: password
+
+KESISWAAN:
+Username: kesiswaan@sippres.com
+Password: password
+
+GURU:
+Username: guru@sippres.com
+Password: password
+
+WALI KELAS:
+Username: walikelas@sippres.com
+Password: password
+
+KONSELOR:
+Username: konselor@sippres.com
+Password: password
+
+KEPALA SEKOLAH:
+Username: kepsek@sippres.com
+Password: password
+
+SISWA:
+Username: siswa@sippres.com
+Password: password
+
+ORANG TUA:
+Username: ortu@sippres.com
+Password: password
+
+================================================================================
+10. MENU & NAVIGASI PER ROLE
+================================================================================
+
+ADMIN:
+├── Dashboard
+├── Data Master
+│   ├── Data Guru
+│   ├── Data Siswa
+│   ├── Data Kelas
+│   ├── Data Jurusan
+│   └── Data User
+├── Pelanggaran
+│   ├── Data Pelanggaran
+│   └── Kategori Pelanggaran
+├── Prestasi
+│   ├── Data Prestasi
+│   └── Kategori Prestasi
+├── Sanksi
+│   ├── Data Sanksi
+│   └── Jenis Sanksi
+├── Tahun Ajaran
+└── Laporan
+
+KESISWAAN:
+├── Dashboard
+├── Pelanggaran
+│   ├── Input Pelanggaran
+│   └── Data Pelanggaran
+├── Prestasi
+│   ├── Input Prestasi
+│   └── Data Prestasi
+├── Verifikasi Data
+├── Monitoring Siswa
+└── Laporan
+
+GURU:
+├── Dashboard
+├── Pelanggaran
+│   ├── Input Pelanggaran
+│   └── Riwayat Pelanggaran
+└── Data Siswa
+
+WALI KELAS:
+├── Dashboard
+├── Pelanggaran Kelas
+├── Monitoring Sanksi
+└── Laporan Kelas
+
+KONSELOR:
+├── Dashboard
+├── Bimbingan Konseling
+│   ├── Input Bimbingan
+│   └── Riwayat Bimbingan
+├── Data Siswa
+└── Laporan Bimbingan
+
+KEPALA SEKOLAH:
+├── Dashboard
+├── Monitoring
+│   ├── Monitoring Pelanggaran
+│   ├── Monitoring Sanksi
+│   └── Monitoring Prestasi
+└── Laporan
+    ├── Laporan Lengkap
+    ├── Export PDF
+    └── Export Excel
+
+SISWA:
+├── Dashboard
+├── Profil Saya
+├── Riwayat Pelanggaran
+├── Riwayat Prestasi
+└── Laporan Pribadi
+
+ORANG TUA:
+├── Dashboard
+├── Profil Anak
+├── Pelanggaran Anak
+├── Prestasi Anak
+└── Laporan Anak
+
+================================================================================
+11. FITUR KEAMANAN
+================================================================================
+
+✓ Authentication & Authorization
+  - Login system dengan session
+  - Role-based access control (RBAC)
+  - Middleware protection per route
+  - Password hashing (bcrypt)
+
+✓ CSRF Protection
+  - CSRF token pada semua form
+  - Validasi token otomatis
+
+✓ Input Validation
+  - Server-side validation
+  - Client-side validation
+  - Sanitasi input
+
+✓ File Upload Security
+  - Validasi tipe file
+  - Validasi ukuran file
+  - Rename file otomatis
+  - Storage terpisah
+
+✓ SQL Injection Prevention
+  - Eloquent ORM
+  - Prepared statements
+  - Parameter binding
+
+✓ XSS Prevention
+  - Blade template escaping
+  - HTML purification
+
+================================================================================
+12. PERFORMA & OPTIMASI
+================================================================================
+
+✓ Database Optimization
+  - Indexing pada kolom penting
+  - Eager loading untuk relasi
+  - Query optimization
+
+✓ Caching
+  - Route caching
+  - Config caching
+  - View caching
+
+✓ Asset Optimization
+  - CSS/JS minification
+  - Image optimization
+  - Lazy loading
+
+✓ Queue System
+  - Background job untuk email
+  - Async notification
+  - Job retry mechanism
+
+================================================================================
+13. DOKUMENTASI TAMBAHAN
+================================================================================
+
+File dokumentasi tersedia di root project:
+
+├── ANALISIS_FINAL_100_PERSEN.md          - Analisis lengkap project
+├── ANALISIS_FOTO_BUKTI_PELANGGARAN.md    - Dokumentasi foto bukti
+├── FITUR_AUTO_SANKSI_SELESAI.md          - Dokumentasi sanksi otomatis
+├── FITUR_LAPORAN_LENGKAP.md              - Dokumentasi laporan
+├── FOTO_PROFIL_SISWA.md                  - Dokumentasi foto profil
+├── IMPLEMENTASI_KONSELOR_SELESAI.txt     - Dokumentasi konselor
+├── KEPSEK_QUICK_START.md                 - Quick start kepala sekolah
+├── KONSELOR_QUICK_START.md               - Quick start konselor
+├── ORANG_TUA_QUICK_START.md              - Quick start orang tua
+├── PENJELASAN_SISTEM_SANKSI.md           - Penjelasan sistem sanksi
+└── TAHUN_AJARAN_GUIDE.md                 - Panduan tahun ajaran
+
+================================================================================
+14. TROUBLESHOOTING
+================================================================================
+
+MASALAH UMUM & SOLUSI:
+
+1. Error 500 - Internal Server Error
+   Solusi: 
+   - Cek file .env
+   - php artisan config:clear
+   - php artisan cache:clear
+
+2. Database Connection Error
+   Solusi:
+   - Pastikan MySQL running
+   - Cek kredensial di .env
+   - Pastikan database 'sippres' sudah dibuat
+
+3. Upload File Gagal
+   Solusi:
+   - Cek permission folder public/uploads
+   - php artisan storage:link
+   - Cek php.ini: upload_max_filesize & post_max_size
+
+4. Route Not Found
+   Solusi:
+   - php artisan route:clear
+   - php artisan route:cache
+
+5. View Not Found
+   Solusi:
+   - php artisan view:clear
+   - Cek nama file blade
+
+6. Email Tidak Terkirim
+   Solusi:
+   - Cek konfigurasi MAIL di .env
+   - php artisan queue:work (untuk queue)
+
+================================================================================
+15. MAINTENANCE & UPDATE
+================================================================================
+
+BACKUP DATABASE:
+mysqldump -u root sippres > backup_sippres_$(date +%Y%m%d).sql
+
+UPDATE DEPENDENCIES:
+composer update
+npm update
+
+CLEAR CACHE:
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+OPTIMIZE:
+php artisan optimize
+php artisan config:cache
+php artisan route:cache
+
+================================================================================
+16. TESTING
+================================================================================
+
+Unit Testing:
+php artisan test
+
+Feature Testing:
+php artisan test --filter=FeatureTest
+
+Browser Testing:
+php artisan dusk
+
+================================================================================
+17. DEPLOYMENT (PRODUCTION)
+================================================================================
+
+CHECKLIST DEPLOYMENT:
+
+1. Environment
+   ☐ Set APP_ENV=production
+   ☐ Set APP_DEBUG=false
+   ☐ Generate APP_KEY baru
+   ☐ Setup database production
+
+2. Security
+   ☐ Update semua password default
+   ☐ Setup HTTPS/SSL
+   ☐ Setup firewall
+   ☐ Disable directory listing
+
+3. Performance
+   ☐ php artisan optimize
+   ☐ php artisan config:cache
+   ☐ php artisan route:cache
+   ☐ php artisan view:cache
+   ☐ npm run build
+
+4. Backup
+   ☐ Setup automated backup
+   ☐ Backup database
+   ☐ Backup files
+
+5. Monitoring
+   ☐ Setup error logging
+   ☐ Setup monitoring tools
+   ☐ Setup uptime monitoring
+
+================================================================================
+18. KONTAK & SUPPORT
+================================================================================
+
+Developer: [Nama Developer]
+Email: [Email Developer]
+GitHub: [GitHub Repository]
+Documentation: [Link Dokumentasi]
+
+================================================================================
+19. CHANGELOG
+================================================================================
+
+Version 1.0.0 (2025-01-XX)
+- Initial release
+- Fitur manajemen pelanggaran
+- Fitur manajemen prestasi
+- Fitur bimbingan konseling
+- Sistem poin otomatis
+- Notifikasi email
+- Laporan PDF & Excel
+- Multi-role system (8 roles)
+- Dashboard interaktif
+- Upload foto bukti & profil
+
+================================================================================
+20. KESIMPULAN
+================================================================================
+
+SIPPRES adalah sistem informasi lengkap untuk mengelola pelanggaran dan 
+prestasi siswa dengan fitur-fitur modern seperti:
+
+✓ Multi-role dengan hak akses berbeda
+✓ Sistem poin otomatis dan sanksi berjenjang
+✓ Upload foto bukti pelanggaran
+✓ Notifikasi email otomatis ke orang tua
+✓ Bimbingan konseling terintegrasi
+✓ Laporan lengkap (PDF & Excel)
+✓ Dashboard interaktif dengan grafik
+✓ Monitoring real-time
+✓ Verifikasi data
+✓ Keamanan berlapis
+
+Sistem ini membantu sekolah dalam:
+- Mendisiplinkan siswa secara terstruktur
+- Monitoring pelanggaran & prestasi siswa
+- Komunikasi dengan orang tua
+- Pengambilan keputusan berbasis data
+- Dokumentasi lengkap dan terorganisir
+
+================================================================================
+                            TERIMA KASIH
+================================================================================

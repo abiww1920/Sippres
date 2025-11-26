@@ -1,0 +1,629 @@
+================================================================================
+                    USER GUIDE APLIKASI SIPPRES
+           SISTEM INFORMASI PELANGGARAN DAN PRESTASI SISWA
+================================================================================
+
+DAFTAR ISI
+1. Pendahuluan
+2. Cara Mengakses Aplikasi
+3. Panduan Login
+4. Panduan Per Role User
+5. Fitur-Fitur Utama
+6. FAQ (Frequently Asked Questions)
+
+================================================================================
+1. PENDAHULUAN
+================================================================================
+
+SIPPRES (Sistem Informasi Pelanggaran dan Prestasi Siswa) adalah aplikasi 
+berbasis web yang dirancang untuk membantu sekolah dalam mengelola data 
+pelanggaran dan prestasi siswa secara digital dan terintegrasi.
+
+TUJUAN APLIKASI:
+- Mencatat dan memantau pelanggaran siswa
+- Mencatat dan mengelola prestasi siswa
+- Memberikan sanksi otomatis berdasarkan poin pelanggaran
+- Memfasilitasi bimbingan konseling
+- Menghasilkan laporan komprehensif
+- Memberikan notifikasi kepada orang tua
+
+PENGGUNA APLIKASI:
+1. Admin - Mengelola seluruh data master sistem
+2. Kesiswaan - Mengelola pelanggaran, prestasi, dan verifikasi
+3. Guru - Mencatat pelanggaran siswa
+4. Wali Kelas - Memantau siswa di kelasnya
+5. Konselor - Melakukan bimbingan konseling
+6. Kepala Sekolah - Monitoring dan laporan
+7. Siswa - Melihat data pelanggaran dan prestasi pribadi
+8. Orang Tua - Memantau perkembangan anak
+
+================================================================================
+2. CARA MENGAKSES APLIKASI
+================================================================================
+
+PERSYARATAN SISTEM:
+- Browser: Google Chrome, Mozilla Firefox, Microsoft Edge (versi terbaru)
+- Koneksi Internet
+- Resolusi layar minimal 1366x768
+
+CARA AKSES:
+1. Buka browser
+2. Ketik URL: http://localhost/UjikomAbi (untuk lokal)
+   atau sesuai domain yang diberikan sekolah
+3. Halaman login akan muncul
+
+================================================================================
+3. PANDUAN LOGIN
+================================================================================
+
+LANGKAH-LANGKAH LOGIN:
+1. Masukkan Email/Username
+2. Masukkan Password
+3. Klik tombol "Login"
+4. Sistem akan mengarahkan ke dashboard sesuai role
+
+AKUN DEFAULT (untuk testing):
+- Admin: admin@sippres.com / password
+- Kesiswaan: kesiswaan@sippres.com / password
+- Guru: guru@sippres.com / password
+- Konselor: konselor@sippres.com / password
+- Kepala Sekolah: kepsek@sippres.com / password
+
+LUPA PASSWORD:
+Hubungi administrator sekolah untuk reset password
+
+================================================================================
+4. PANDUAN PER ROLE USER
+================================================================================
+
+--------------------------------------------------------------------------------
+4.1 ADMIN
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Statistik keseluruhan sistem
+2. Data Guru - Kelola data guru
+3. Data Siswa - Kelola data siswa
+4. Data Kelas - Kelola data kelas
+5. Data Jurusan - Kelola data jurusan
+6. Data User - Kelola akun pengguna
+7. Kategori Pelanggaran - Kelola jenis pelanggaran
+8. Data Pelanggaran - Lihat semua pelanggaran
+9. Data Prestasi - Lihat semua prestasi
+10. Data Sanksi - Kelola sanksi
+11. Tahun Ajaran - Kelola tahun ajaran
+12. Laporan - Generate laporan
+
+CARA MENAMBAH DATA GURU:
+1. Klik menu "Data Guru"
+2. Klik tombol "Tambah Guru"
+3. Isi form:
+   - NIP
+   - Nama Guru
+   - Email
+   - No. Telepon
+   - Mata Pelajaran
+   - Status
+4. Klik "Simpan"
+
+CARA MENAMBAH DATA SISWA:
+1. Klik menu "Data Siswa"
+2. Klik tombol "Tambah Siswa"
+3. Isi form:
+   - NIS
+   - Nama Siswa
+   - Email
+   - Kelas
+   - Jurusan
+   - Jenis Kelamin
+   - Alamat
+   - No. HP Siswa
+   - Nama Orang Tua
+   - No. HP Orang Tua
+   - Upload Foto (opsional)
+4. Klik "Simpan"
+
+CARA MENGELOLA KELAS:
+1. Klik menu "Data Kelas"
+2. Untuk tambah: Klik "Tambah Kelas"
+3. Isi: Nama Kelas, Tingkat, Wali Kelas
+4. Klik "Simpan"
+
+CARA MENGELOLA TAHUN AJARAN:
+1. Klik menu "Tahun Ajaran"
+2. Klik "Tambah Tahun Ajaran"
+3. Isi: Tahun Ajaran (contoh: 2024/2025)
+4. Centang "Aktif" jika tahun ajaran sedang berjalan
+5. Klik "Simpan"
+
+--------------------------------------------------------------------------------
+4.2 KESISWAAN
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Statistik pelanggaran dan prestasi
+2. Data Pelanggaran - Kelola pelanggaran
+3. Data Prestasi - Kelola prestasi
+4. Verifikasi - Verifikasi data pelanggaran/prestasi
+5. Monitoring - Pantau siswa bermasalah
+6. Laporan - Generate laporan
+
+CARA MENCATAT PELANGGARAN:
+1. Klik menu "Data Pelanggaran"
+2. Klik "Tambah Pelanggaran"
+3. Isi form:
+   - Pilih Siswa (cari berdasarkan nama/NIS)
+   - Pilih Jenis Pelanggaran
+   - Poin akan otomatis terisi
+   - Isi Keterangan
+   - Upload Foto Bukti (jika ada)
+4. Klik "Simpan"
+5. Status: "Menunggu Verifikasi"
+
+CARA MENCATAT PRESTASI:
+1. Klik menu "Data Prestasi"
+2. Klik "Tambah Prestasi"
+3. Isi form:
+   - Pilih Siswa
+   - Pilih Jenis Prestasi
+   - Tingkat (Sekolah/Kecamatan/Kabupaten/Provinsi/Nasional)
+   - Juara (1/2/3/Harapan)
+   - Tanggal Prestasi
+   - Keterangan
+   - Upload Sertifikat (opsional)
+4. Klik "Simpan"
+
+CARA VERIFIKASI DATA:
+1. Klik menu "Verifikasi"
+2. Akan muncul daftar data yang menunggu verifikasi
+3. Klik "Detail" pada data yang ingin diverifikasi
+4. Periksa data dengan teliti
+5. Pilih:
+   - "Verifikasi" jika data benar
+   - "Tolak" jika data tidak sesuai (isi alasan penolakan)
+6. Klik "Submit"
+
+CARA MONITORING SISWA:
+1. Klik menu "Monitoring"
+2. Sistem menampilkan siswa dengan poin pelanggaran tinggi
+3. Klik nama siswa untuk melihat detail
+4. Lihat riwayat pelanggaran dan sanksi
+5. Bisa cetak laporan per siswa
+
+CARA MEMBUAT LAPORAN:
+1. Klik menu "Laporan"
+2. Pilih jenis laporan:
+   - Laporan Pelanggaran
+   - Laporan Prestasi
+   - Laporan Per Siswa
+   - Rekap Bulanan
+3. Filter berdasarkan:
+   - Tanggal
+   - Kelas
+   - Jenis Pelanggaran/Prestasi
+4. Klik "Generate Laporan"
+5. Pilih format: PDF atau Excel
+6. Klik "Download"
+
+--------------------------------------------------------------------------------
+4.3 GURU
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Ringkasan data
+2. Data Pelanggaran - Input dan lihat pelanggaran
+3. Data Siswa - Lihat data siswa
+
+CARA MENCATAT PELANGGARAN:
+1. Klik menu "Data Pelanggaran"
+2. Klik "Tambah Pelanggaran"
+3. Isi form:
+   - Cari dan pilih Siswa
+   - Pilih Jenis Pelanggaran dari dropdown
+   - Poin otomatis muncul
+   - Isi Keterangan detail kejadian
+   - Upload Foto Bukti (jika ada)
+4. Klik "Simpan"
+5. Data akan masuk ke sistem dengan status "Menunggu Verifikasi"
+
+TIPS MENCATAT PELANGGARAN:
+- Catat segera setelah kejadian
+- Isi keterangan dengan jelas dan objektif
+- Upload foto bukti jika memungkinkan
+- Pastikan siswa yang dipilih sudah benar
+
+CARA MELIHAT DATA SISWA:
+1. Klik menu "Data Siswa"
+2. Gunakan pencarian untuk cari siswa
+3. Klik nama siswa untuk lihat detail
+4. Informasi yang ditampilkan:
+   - Data pribadi
+   - Riwayat pelanggaran
+   - Riwayat prestasi
+   - Total poin
+
+--------------------------------------------------------------------------------
+4.4 WALI KELAS
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Statistik kelas yang diampu
+2. Data Pelanggaran - Input dan pantau pelanggaran kelas
+3. Monitoring Sanksi - Pantau pelaksanaan sanksi
+4. Laporan - Laporan kelas
+
+CARA MEMANTAU SISWA DI KELAS:
+1. Dashboard menampilkan statistik kelas Anda
+2. Lihat siswa dengan pelanggaran terbanyak
+3. Klik nama siswa untuk detail
+4. Koordinasi dengan konselor jika diperlukan
+
+CARA MONITORING SANKSI:
+1. Klik menu "Monitoring Sanksi"
+2. Lihat daftar sanksi siswa di kelas Anda
+3. Status sanksi:
+   - Belum Dilaksanakan
+   - Sedang Dilaksanakan
+   - Selesai
+4. Update status sanksi sesuai pelaksanaan
+
+CARA MEMBUAT LAPORAN KELAS:
+1. Klik menu "Laporan"
+2. Sistem otomatis filter data kelas Anda
+3. Pilih periode laporan
+4. Klik "Generate PDF"
+5. Laporan akan terdownload
+
+--------------------------------------------------------------------------------
+4.5 KONSELOR
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Statistik bimbingan
+2. Bimbingan Konseling - Kelola sesi bimbingan
+3. Data Siswa - Lihat profil siswa
+4. Laporan - Laporan bimbingan
+
+CARA MEMBUAT SESI BIMBINGAN:
+1. Klik menu "Bimbingan Konseling"
+2. Klik "Tambah Bimbingan"
+3. Isi form:
+   - Pilih Siswa
+   - Tanggal Bimbingan
+   - Jenis Bimbingan (Individu/Kelompok)
+   - Topik Bimbingan
+   - Hasil Bimbingan
+   - Tindak Lanjut
+   - Catatan
+4. Klik "Simpan"
+
+CARA MELIHAT RIWAYAT BIMBINGAN:
+1. Klik menu "Bimbingan Konseling"
+2. Lihat daftar semua sesi bimbingan
+3. Klik "Detail" untuk lihat lengkap
+4. Bisa edit atau hapus jika diperlukan
+
+CARA MEMBUAT LAPORAN BIMBINGAN:
+1. Klik menu "Laporan"
+2. Filter berdasarkan:
+   - Periode
+   - Jenis Bimbingan
+   - Siswa
+3. Klik "Export PDF" atau "Export Excel"
+
+--------------------------------------------------------------------------------
+4.6 KEPALA SEKOLAH
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Overview seluruh sekolah
+2. Monitoring - Pantau pelanggaran dan prestasi
+3. Laporan - Laporan komprehensif
+
+CARA MONITORING:
+1. Klik menu "Monitoring"
+2. Lihat grafik dan statistik:
+   - Pelanggaran per bulan
+   - Prestasi per bulan
+   - Kelas dengan pelanggaran terbanyak
+   - Siswa bermasalah
+3. Klik detail untuk informasi lengkap
+
+CARA MEMBUAT LAPORAN:
+1. Klik menu "Laporan"
+2. Pilih jenis laporan
+3. Tentukan periode
+4. Export ke Excel atau PDF
+5. Gunakan untuk rapat atau evaluasi
+
+--------------------------------------------------------------------------------
+4.7 SISWA
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Ringkasan data pribadi
+2. Profil - Data pribadi
+3. Pelanggaran - Riwayat pelanggaran
+4. Prestasi - Riwayat prestasi
+5. Laporan - Laporan pribadi
+
+CARA MELIHAT PELANGGARAN:
+1. Klik menu "Pelanggaran"
+2. Lihat daftar pelanggaran Anda
+3. Informasi yang ditampilkan:
+   - Tanggal
+   - Jenis Pelanggaran
+   - Poin
+   - Keterangan
+   - Status Verifikasi
+   - Sanksi (jika ada)
+
+CARA MELIHAT PRESTASI:
+1. Klik menu "Prestasi"
+2. Lihat daftar prestasi Anda
+3. Informasi yang ditampilkan:
+   - Tanggal
+   - Jenis Prestasi
+   - Tingkat
+   - Juara
+   - Poin
+
+CARA DOWNLOAD LAPORAN:
+1. Klik menu "Laporan"
+2. Pilih periode
+3. Klik "Download PDF"
+4. Laporan berisi:
+   - Data pribadi
+   - Riwayat pelanggaran
+   - Riwayat prestasi
+   - Total poin
+
+--------------------------------------------------------------------------------
+4.8 ORANG TUA
+--------------------------------------------------------------------------------
+
+MENU YANG TERSEDIA:
+1. Dashboard - Ringkasan data anak
+2. Pelanggaran - Riwayat pelanggaran anak
+3. Prestasi - Riwayat prestasi anak
+4. Profil - Data anak
+5. Laporan - Laporan perkembangan anak
+
+CARA MEMANTAU ANAK:
+1. Login dengan akun orang tua
+2. Dashboard menampilkan ringkasan:
+   - Total pelanggaran
+   - Total prestasi
+   - Poin bersih
+   - Grafik perkembangan
+3. Klik menu untuk detail
+
+CARA MELIHAT PELANGGARAN ANAK:
+1. Klik menu "Pelanggaran"
+2. Lihat semua pelanggaran anak
+3. Bisa filter berdasarkan tanggal
+4. Lihat detail sanksi yang diberikan
+
+CARA MELIHAT PRESTASI ANAK:
+1. Klik menu "Prestasi"
+2. Lihat semua prestasi anak
+3. Lihat tingkat dan juara
+
+NOTIFIKASI:
+- Orang tua akan menerima notifikasi email saat:
+  * Anak melakukan pelanggaran
+  * Anak mendapat sanksi
+  * Anak mendapat prestasi
+
+================================================================================
+5. FITUR-FITUR UTAMA
+================================================================================
+
+--------------------------------------------------------------------------------
+5.1 SISTEM POIN
+--------------------------------------------------------------------------------
+
+POIN PELANGGARAN:
+- Ringan: 5-15 poin
+- Sedang: 20-30 poin
+- Berat: 50-75 poin
+- Sangat Berat: 100 poin
+
+POIN PRESTASI:
+- Sekolah: 5-10 poin
+- Kecamatan: 15-20 poin
+- Kabupaten: 25-30 poin
+- Provinsi: 35-40 poin
+- Nasional: 45-50 poin
+
+POIN BERSIH:
+Poin Bersih = Total Poin Prestasi - Total Poin Pelanggaran
+
+--------------------------------------------------------------------------------
+5.2 SISTEM SANKSI OTOMATIS
+--------------------------------------------------------------------------------
+
+SANKSI BERDASARKAN AKUMULASI POIN:
+- 25-49 poin: Teguran tertulis + Panggilan orang tua
+- 50-74 poin: Skorsing 1 hari + Bimbingan konseling
+- 75-99 poin: Skorsing 3 hari + Surat pernyataan
+- 100+ poin: Skorsing 1 minggu + Pertimbangan dikeluarkan
+
+PELAKSANAAN SANKSI:
+1. Sanksi otomatis dibuat saat pelanggaran diverifikasi
+2. Wali kelas memantau pelaksanaan
+3. Status sanksi diupdate sesuai pelaksanaan
+4. Orang tua mendapat notifikasi
+
+--------------------------------------------------------------------------------
+5.3 VERIFIKASI DATA
+--------------------------------------------------------------------------------
+
+PROSES VERIFIKASI:
+1. Guru/Wali Kelas input pelanggaran
+2. Status: "Menunggu Verifikasi"
+3. Kesiswaan melakukan verifikasi
+4. Jika disetujui: Status "Diverifikasi", sanksi otomatis dibuat
+5. Jika ditolak: Status "Ditolak", beri alasan
+
+TUJUAN VERIFIKASI:
+- Memastikan keakuratan data
+- Mencegah kesalahan input
+- Validasi bukti pelanggaran
+
+--------------------------------------------------------------------------------
+5.4 BIMBINGAN KONSELING
+--------------------------------------------------------------------------------
+
+JENIS BIMBINGAN:
+- Bimbingan Individu
+- Bimbingan Kelompok
+
+TOPIK BIMBINGAN:
+- Pelanggaran
+- Prestasi
+- Akademik
+- Sosial
+- Karir
+- Pribadi
+
+DOKUMENTASI:
+- Setiap sesi didokumentasikan
+- Hasil dan tindak lanjut dicatat
+- Bisa diakses untuk evaluasi
+
+--------------------------------------------------------------------------------
+5.5 LAPORAN
+--------------------------------------------------------------------------------
+
+JENIS LAPORAN:
+1. Laporan Pelanggaran
+   - Per siswa
+   - Per kelas
+   - Per jenis pelanggaran
+   - Per periode
+
+2. Laporan Prestasi
+   - Per siswa
+   - Per kelas
+   - Per tingkat
+   - Per periode
+
+3. Laporan Bimbingan Konseling
+   - Per siswa
+   - Per jenis bimbingan
+   - Per periode
+
+4. Laporan Rekap Bulanan
+   - Statistik keseluruhan
+   - Grafik tren
+   - Analisis
+
+FORMAT LAPORAN:
+- PDF: Untuk cetak dan arsip
+- Excel: Untuk analisis data lebih lanjut
+
+--------------------------------------------------------------------------------
+5.6 NOTIFIKASI
+--------------------------------------------------------------------------------
+
+NOTIFIKASI EMAIL:
+- Orang tua mendapat email saat:
+  * Anak melakukan pelanggaran
+  * Anak mendapat sanksi
+  * Anak mendapat prestasi
+
+NOTIFIKASI SISTEM:
+- Notifikasi dalam aplikasi
+- Badge notifikasi di menu
+- Bisa mark as read
+
+================================================================================
+6. FAQ (FREQUENTLY ASKED QUESTIONS)
+================================================================================
+
+Q: Bagaimana cara reset password?
+A: Hubungi administrator sekolah untuk reset password.
+
+Q: Apakah bisa edit data pelanggaran yang sudah diverifikasi?
+A: Tidak. Data yang sudah diverifikasi tidak bisa diedit. Hubungi kesiswaan
+   jika ada kesalahan.
+
+Q: Bagaimana cara upload foto bukti pelanggaran?
+A: Saat input pelanggaran, klik tombol "Choose File" di field Foto Bukti,
+   pilih file gambar (JPG/PNG), maksimal 2MB.
+
+Q: Apakah prestasi bisa mengurangi poin pelanggaran?
+A: Ya. Sistem menghitung Poin Bersih = Poin Prestasi - Poin Pelanggaran.
+
+Q: Bagaimana cara melihat siswa dengan pelanggaran terbanyak?
+A: Klik menu Monitoring, sistem akan menampilkan siswa dengan poin tertinggi.
+
+Q: Apakah orang tua bisa login ke sistem?
+A: Ya. Orang tua mendapat akun untuk memantau perkembangan anak.
+
+Q: Bagaimana cara mengganti tahun ajaran?
+A: Admin masuk ke menu Tahun Ajaran, tambah tahun ajaran baru, dan set
+   sebagai aktif.
+
+Q: Apakah bisa export data ke Excel?
+A: Ya. Di menu Laporan, pilih "Export Excel".
+
+Q: Bagaimana cara menghubungi konselor?
+A: Lihat data konselor di menu Data Guru atau hubungi bagian kesiswaan.
+
+Q: Apakah ada backup data?
+A: Ya. Sistem melakukan backup otomatis. Hubungi admin untuk restore data.
+
+Q: Bagaimana cara mencetak laporan?
+A: Generate laporan dalam format PDF, lalu print dari browser.
+
+Q: Apakah bisa filter data berdasarkan kelas?
+A: Ya. Hampir semua menu memiliki fitur filter berdasarkan kelas.
+
+Q: Bagaimana cara menambah jenis pelanggaran baru?
+A: Admin masuk ke menu Kategori Pelanggaran, klik Tambah, isi data.
+
+Q: Apakah siswa bisa melihat data siswa lain?
+A: Tidak. Siswa hanya bisa melihat data pribadi mereka sendiri.
+
+Q: Bagaimana cara update foto profil siswa?
+A: Admin atau Kesiswaan edit data siswa, upload foto baru.
+
+================================================================================
+KONTAK SUPPORT
+================================================================================
+
+Jika mengalami kendala teknis atau membutuhkan bantuan:
+- Email: support@sippres.com
+- Telepon: (021) 1234-5678
+- WhatsApp: 0812-3456-7890
+
+Jam Operasional Support:
+Senin - Jumat: 08.00 - 16.00 WIB
+Sabtu: 08.00 - 12.00 WIB
+
+================================================================================
+CATATAN PENTING
+================================================================================
+
+1. Jaga kerahasiaan username dan password Anda
+2. Logout setelah selesai menggunakan aplikasi
+3. Gunakan browser versi terbaru untuk performa optimal
+4. Pastikan koneksi internet stabil saat menggunakan aplikasi
+5. Backup data secara berkala
+6. Laporkan bug atau error ke tim support
+7. Ikuti prosedur yang telah ditetapkan
+8. Data yang sudah diverifikasi tidak bisa diubah
+
+================================================================================
+VERSI DOKUMEN
+================================================================================
+
+Versi: 1.0
+Tanggal: Januari 2025
+Dibuat oleh: Tim Pengembang SIPPRES
+
+================================================================================
+                            TERIMA KASIH
+================================================================================

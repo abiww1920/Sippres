@@ -1,0 +1,310 @@
+================================================================================
+                    STRUKTUR FILE ROLE KONSELOR
+================================================================================
+
+PROJECT: Sistem Manajemen Pelanggaran Siswa
+ROLE: Konselor (Guru Bimbingan Konseling)
+CREATED: 2025-11-20
+
+================================================================================
+                          STRUKTUR FOLDER
+================================================================================
+
+UjikomAbi/
+│
+├── resources/views/
+│   ├── mainKonselor.blade.php ........................... Layout utama
+│   ├── layout/
+│   │   └── sidebarKonselor.blade.php ................... Sidebar navigasi
+│   │
+│   └── konselor/
+│       ├── dashboard.blade.php ......................... Dashboard
+│       │
+│       ├── bimbingan/
+│       │   ├── index.blade.php ......................... Daftar bimbingan
+│       │   ├── create.blade.php ........................ Form input
+│       │   ├── edit.blade.php .......................... Form edit
+│       │   └── show.blade.php .......................... Detail
+│       │
+│       ├── siswa/
+│       │   ├── index.blade.php ......................... Daftar siswa
+│       │   └── show.blade.php .......................... Detail siswa
+│       │
+│       └── laporan/
+│           └── index.blade.php ......................... Laporan
+│
+├── app/Http/Controllers/
+│   └── Konselor/
+│       ├── DashboardController.php ..................... Dashboard logic
+│       ├── BimbinganController.php ..................... Bimbingan CRUD
+│       ├── SiswaController.php ......................... Siswa view
+│       └── LaporanController.php ....................... Laporan & export
+│
+├── database/migrations/
+│   └── 2025_11_20_000000_add_fields_to_siswa_table.php . Migration
+│
+├── routes/
+│   └── web.php ........................................ Routes (updated)
+│
+├── app/Models/
+│   ├── BimbinganKonseling.php .......................... Model (updated)
+│   └── Siswa.php ....................................... Model (updated)
+│
+└── Documentation/
+    ├── KONSELOR_SETUP.md ............................... Setup guide
+    ├── KONSELOR_CHECKLIST.md ........................... Checklist
+    ├── KONSELOR_SUMMARY.txt ............................ Summary
+    ├── KONSELOR_QUICK_START.md ......................... Quick start
+    └── KONSELOR_FILE_STRUCTURE.txt ..................... File ini
+
+================================================================================
+                          DETAIL FILE
+================================================================================
+
+📄 VIEWS (10 files)
+────────────────────────────────────────────────────────────────────────────
+
+1. mainKonselor.blade.php
+   - Layout utama untuk semua halaman Konselor
+   - Header dengan navbar
+   - Sidebar dengan menu navigasi
+   - Body wrapper untuk content
+   - Script & style imports
+
+2. layout/sidebarKonselor.blade.php
+   - Menu navigasi sidebar
+   - Dashboard link
+   - Bimbingan menu (Data & Input)
+   - Siswa menu
+   - Laporan & Notifikasi menu
+   - Logout button
+
+3. konselor/dashboard.blade.php
+   - Statistik cepat (4 cards)
+   - Tabel bimbingan terbaru
+   - Responsive design
+
+4. konselor/bimbingan/index.blade.php
+   - Daftar semua bimbingan
+   - Tabel dengan pagination
+   - Action buttons (View, Edit, Delete)
+   - Tombol tambah bimbingan
+
+5. konselor/bimbingan/create.blade.php
+   - Form input bimbingan baru
+   - Field: siswa, topik, tanggal, waktu, deskripsi, status
+   - Validasi form
+   - Submit & cancel buttons
+
+6. konselor/bimbingan/edit.blade.php
+   - Form edit bimbingan
+   - Pre-filled dengan data existing
+   - Sama dengan create form
+   - Update & cancel buttons
+
+7. konselor/bimbingan/show.blade.php
+   - Detail bimbingan
+   - Info siswa & bimbingan
+   - Deskripsi lengkap
+   - Edit, Delete, Back buttons
+
+8. konselor/siswa/index.blade.php
+   - Daftar semua siswa
+   - Tabel dengan pagination
+   - Info: nama, NIS, kelas, jurusan, email
+   - View button untuk detail
+
+9. konselor/siswa/show.blade.php
+   - Detail siswa
+   - Info pribadi & akademik
+   - Riwayat bimbingan dalam tabel
+   - Back button
+
+10. konselor/laporan/index.blade.php
+    - Filter laporan (bulan, status)
+    - Tabel data bimbingan
+    - Export Excel & PDF buttons
+    - Pagination
+
+────────────────────────────────────────────────────────────────────────────
+
+📄 CONTROLLERS (4 files)
+────────────────────────────────────────────────────────────────────────────
+
+1. Konselor/DashboardController.php
+   - index() - Tampilkan dashboard dengan statistik
+   - Query: total siswa, total bimbingan, bimbingan bulan ini, selesai
+   - Return view dengan data
+
+2. Konselor/BimbinganController.php
+   - index() - Daftar bimbingan dengan pagination
+   - create() - Form input bimbingan
+   - store() - Simpan bimbingan baru
+   - show() - Detail bimbingan
+   - edit() - Form edit bimbingan
+   - update() - Update bimbingan
+   - destroy() - Hapus bimbingan
+
+3. Konselor/SiswaController.php
+   - index() - Daftar siswa dengan pagination
+   - show() - Detail siswa dengan riwayat bimbingan
+
+4. Konselor/LaporanController.php
+   - index() - Laporan dengan filter
+   - exportExcel() - Export ke Excel
+   - exportPdf() - Export ke PDF
+
+────────────────────────────────────────────────────────────────────────────
+
+📄 MODELS (2 files - updated)
+────────────────────────────────────────────────────────────────────────────
+
+1. BimbinganKonseling.php (updated)
+   - Fillable: siswa_id, topik, tanggal, waktu, deskripsi, status
+   - Relationships: siswa(), guruKonselor(), user()
+   - Casts: tanggal as datetime
+   - Scopes: aktif()
+   - Accessor: getStatusLabelAttribute()
+
+2. Siswa.php (updated)
+   - Fillable: email, no_telepon, jurusan_id (added)
+   - Relationships: jurusan() (added)
+   - Existing: kelas(), pelanggaran(), prestasi(), bimbinganKonseling()
+
+────────────────────────────────────────────────────────────────────────────
+
+📄 DATABASE (1 file)
+────────────────────────────────────────────────────────────────────────────
+
+1. migrations/2025_11_20_000000_add_fields_to_siswa_table.php
+   - Add email column
+   - Add no_telepon column
+   - Add jurusan_id foreign key
+   - Rollback: drop columns & foreign key
+
+────────────────────────────────────────────────────────────────────────────
+
+📄 ROUTES (1 file - updated)
+────────────────────────────────────────────────────────────────────────────
+
+1. routes/web.php (updated)
+   - Import Konselor controllers
+   - Middleware: role:konselor
+   - Routes:
+     * GET /konselor/dashboard
+     * GET /konselor/bimbingan
+     * GET /konselor/bimbingan/create
+     * POST /konselor/bimbingan
+     * GET /konselor/bimbingan/{id}
+     * GET /konselor/bimbingan/{id}/edit
+     * PUT /konselor/bimbingan/{id}
+     * DELETE /konselor/bimbingan/{id}
+     * GET /konselor/siswa
+     * GET /konselor/siswa/{id}
+     * GET /konselor/laporan
+     * GET /konselor/laporan/export-excel
+     * GET /konselor/laporan/export-pdf
+
+================================================================================
+                          FITUR PER FILE
+================================================================================
+
+Dashboard
+├── Statistik Total Siswa
+├── Statistik Total Bimbingan
+├── Statistik Bimbingan Bulan Ini
+├── Statistik Bimbingan Selesai
+└── Tabel Bimbingan Terbaru
+
+Bimbingan
+├── Daftar Bimbingan (CRUD)
+├── Input Bimbingan Baru
+├── Edit Bimbingan
+├── Hapus Bimbingan
+└── Detail Bimbingan
+
+Siswa
+├── Daftar Siswa
+├── Detail Siswa
+└── Riwayat Bimbingan per Siswa
+
+Laporan
+├── Filter Laporan (Bulan & Status)
+├── Tabel Data Bimbingan
+├── Export Excel
+└── Export PDF
+
+================================================================================
+                          NAMING CONVENTION
+================================================================================
+
+Controllers:
+- Class: KonselorDashboard, KonselorBimbingan, KonselorSiswa, KonselorLaporan
+- Method: index, create, store, show, edit, update, destroy
+
+Routes:
+- Named: konselor.dashboard, konselor.bimbingan.index, dll
+- URL: /konselor/dashboard, /konselor/bimbingan, dll
+
+Views:
+- Path: resources/views/konselor/...
+- Naming: dashboard.blade.php, index.blade.php, create.blade.php, dll
+
+Models:
+- Class: BimbinganKonseling, Siswa
+- Table: bimbingan_konselings, siswa
+
+================================================================================
+                          DEPENDENCIES
+================================================================================
+
+- Laravel 11
+- Bootstrap 5
+- Tabler Icons
+- ApexCharts
+- Blade Template Engine
+- Eloquent ORM
+
+Optional (untuk export):
+- maatwebsite/excel (Excel export)
+- barryvdh/laravel-dompdf (PDF export)
+
+================================================================================
+                          TOTAL FILES CREATED
+================================================================================
+
+Views:           10 files
+Controllers:      4 files
+Models:           2 files (updated)
+Migrations:       1 file
+Routes:           1 file (updated)
+Documentation:    4 files
+
+TOTAL:           22 files
+
+================================================================================
+                          STATUS
+================================================================================
+
+✅ Views & Layout ............... DONE
+✅ Controllers .................. DONE
+✅ Models & Database ............ DONE
+✅ Routes ....................... DONE
+✅ Documentation ................ DONE
+✅ Sidebar Menu ................. DONE
+✅ Dashboard .................... DONE
+✅ Bimbingan CRUD ............... DONE
+✅ Siswa View ................... DONE
+✅ Laporan & Export ............. DONE
+
+STATUS: ✅ READY TO USE
+
+================================================================================
+                          LAST UPDATED
+================================================================================
+
+Date: 2025-11-20
+Version: 1.0
+Status: Production Ready
+
+================================================================================
