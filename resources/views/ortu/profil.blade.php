@@ -111,14 +111,49 @@
               </div>
             </div>
           </div>
-          <div class="mb-0">
+          <div class="mb-3 pb-3 border-bottom">
             <div class="d-flex align-items-center">
-              <div class="btn btn-warning rounded-circle round-40 hstack justify-content-center">
+              <div class="btn btn-danger rounded-circle round-40 hstack justify-content-center">
+                <i class="ti ti-minus fs-5"></i>
+              </div>
+              <div class="ms-3">
+                <h6 class="mb-0 fw-bolder">Poin Pelanggaran</h6>
+                <span class="text-danger fs-3 fw-bold">{{ $totalPoinPelanggaran }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 pb-3 border-bottom">
+            <div class="d-flex align-items-center">
+              <div class="btn btn-success rounded-circle round-40 hstack justify-content-center">
+                <i class="ti ti-plus fs-5"></i>
+              </div>
+              <div class="ms-3">
+                <h6 class="mb-0 fw-bolder">Poin Prestasi</h6>
+                <span class="text-success fs-3 fw-bold">{{ $totalPoinPrestasi }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 pb-3 border-bottom">
+            <div class="d-flex align-items-center">
+              <div class="btn btn-{{ $poinBersih >= 0 ? 'success' : 'warning' }} rounded-circle round-40 hstack justify-content-center">
                 <i class="ti ti-star fs-5"></i>
               </div>
               <div class="ms-3">
-                <h6 class="mb-0 fw-bolder">Total Poin</h6>
-                <span class="text-muted fs-3">{{ $totalPoin }} Poin</span>
+                <h6 class="mb-0 fw-bolder">Poin Bersih</h6>
+                <span class="text-{{ $poinBersih >= 0 ? 'success' : 'warning' }} fs-3 fw-bold">{{ $poinBersih }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-0">
+            <div class="d-flex align-items-center">
+              <div class="btn btn-{{ $statusKedisiplinan['color'] }} rounded-circle round-40 hstack justify-content-center">
+                <i class="ti ti-shield fs-5"></i>
+              </div>
+              <div class="ms-3">
+                <h6 class="mb-0 fw-bolder">Status Kedisiplinan</h6>
+                <span class="badge bg-{{ $statusKedisiplinan['color'] }} fs-3">
+                  {{ $statusKedisiplinan['icon'] }} {{ $statusKedisiplinan['status'] }}
+                </span>
               </div>
             </div>
           </div>

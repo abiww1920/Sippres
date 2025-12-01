@@ -104,18 +104,20 @@
                                     <th>Tanggal</th>
                                     <th>Prestasi</th>
                                     <th>Tingkat</th>
+                                    <th>Juara</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($siswa->prestasi->take(10) as $p)
                                 <tr>
-                                    <td>{{ $p->created_at->format('d/m/Y') }}</td>
-                                    <td>{{ $p->jenisPrestasi->nama_prestasi }}</td>
-                                    <td><span class="badge bg-success">{{ $p->jenisPrestasi->tingkat }}</span></td>
+                                    <td>{{ $p->tanggal ? $p->tanggal->format('d/m/Y') : $p->created_at->format('d/m/Y') }}</td>
+                                    <td>{{ $p->nama_prestasi }}</td>
+                                    <td><span class="badge bg-success">{{ ucfirst($p->tingkat) }}</span></td>
+                                    <td><span class="badge bg-info">{{ $p->juara }}</span></td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="3" class="text-center">Tidak ada prestasi</td>
+                                    <td colspan="4" class="text-center">Tidak ada prestasi</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -126,10 +128,72 @@
         </div>
     </div>
 
+    <!-- Grafik Perkembangan Siswa -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Grafik Perkembangan Siswa (6 Bulan Terakhir)</h5>
+                    <canvas id="studentProgressChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="mt-3">
         <a href="{{ route('guru.siswa') }}" class="btn btn-secondary">
             <i class="ti ti-arrow-left"></i> Kembali
         </a>
+        <a href="{{ route('guru.siswa.riwayat-pelanggaran', $siswa->id) }}" class="btn btn-primary">
+            <i class="ti ti-history"></i> Lihat Riwayat Lengkap
+        </a>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('studentProgressChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {!! json_encode($chartData['months']) !!},
+        datasets: [{
+            label: 'Pelanggaran',
+            data: {!! json_encode($chartData['pelanggaran']) !!},
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            tension: 0.1
+        }, {
+            label: 'Prestasi',
+            data: {!! json_encode($chartData['prestasi']) !!},
+            borderColor: 'rgb(54, 162, 235)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Perkembangan Pelanggaran dan Prestasi'
+            },
+            legend: {
+                display: true,
+                position: 'top'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    }
+});
+</script>
+@endpush
 @endsection

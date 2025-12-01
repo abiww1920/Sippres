@@ -35,7 +35,7 @@
               <td><p class="mb-0 fw-normal fs-4">{{ $pr->nama_prestasi }}</p></td>
               <td><span class="badge bg-success-subtle text-success">{{ ucfirst($pr->tingkat) }}</span></td>
               <td><p class="mb-0 fw-normal fs-4">{{ $pr->juara }}</p></td>
-              <td><p class="mb-0 fw-normal fs-4">{{ $pr->tanggal->format('d M Y') }}</p></td>
+              <td><p class="mb-0 fw-normal fs-4">{{ $pr->tanggal ? date('d M Y', strtotime($pr->tanggal)) : '-' }}</p></td>
             </tr>
             @empty
             <tr>

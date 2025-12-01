@@ -53,6 +53,11 @@ class Siswa extends Model
         return $this->hasMany(BimbinganKonseling::class);
     }
 
+    public function sanksi()
+    {
+        return $this->hasManyThrough(Sanksi::class, Pelanggaran::class, 'siswa_id', 'pelanggaran_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class);

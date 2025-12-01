@@ -10,6 +10,7 @@ use App\Models\Siswa;
 use App\Models\Guru;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -108,6 +109,9 @@ class DashboardController extends Controller
             ];
         }
         
+        // Alert counts untuk dashboard
+        $alertCounts = $this->getAlertCounts($kelasIds);
+        
         return view('wali_kelas.dashboard', compact(
             'guru',
             'kelasWali',
@@ -118,7 +122,52 @@ class DashboardController extends Controller
             'prestasiBulanIni',
             'pelanggaranTerbaru',
             'prestasiTerbaru',
-            'chartData'
+            'chartData',
+            'alertCounts'
         ));
+    }
+    
+    private function getAlertCounts($kelasIds)
+    {
+        // Siswa dengan poin kritis (75+)
+        $siswaKritis = Siswa::whereIn('kelas_id', $kelasIds)
+            ->with(['pelanggaran.jenisPelanggaran'])
+            ->get()
+            ->filter(function($siswa) {
+                $totalPoin = $siswa->pelanggaran
+                    ->where('status_verifikasi', 'diverifikasi')
+                    ->sum(function($p) {
+                        return $p->jenisPelanggaran->poin ?? 0;
+                    });
+                return $totalPoin >= 75;
+            })->count();
+        
+        // Siswa dengan sanksi baru (7 hari terakhir)
+        $siswaSanksiBaru = \DB::table('sanksi')
+            ->join('pelanggaran', 'sanksi.pelanggaran_id', '=', 'pelanggaran.id')
+            ->join('siswa', 'pelanggaran.siswa_id', '=', 'siswa.id')
+            ->whereIn('siswa.kelas_id', $kelasIds)
+            ->where('sanksi.created_at', '>=', now()->subDays(7))
+            ->distinct('siswa.id')
+            ->count('siswa.id');
+        
+        // Siswa yang perlu panggilan orang tua (poin 50-74)
+        $siswaPanggilanOrtu = Siswa::whereIn('kelas_id', $kelasIds)
+            ->with(['pelanggaran.jenisPelanggaran'])
+            ->get()
+            ->filter(function($siswa) {
+                $totalPoin = $siswa->pelanggaran
+                    ->where('status_verifikasi', 'diverifikasi')
+                    ->sum(function($p) {
+                        return $p->jenisPelanggaran->poin ?? 0;
+                    });
+                return $totalPoin >= 50 && $totalPoin < 75;
+            })->count();
+        
+        return [
+            'siswa_kritis' => $siswaKritis,
+            'sanksi_baru' => $siswaSanksiBaru,
+            'panggilan_ortu' => $siswaPanggilanOrtu
+        ];
     }
 }

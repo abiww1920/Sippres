@@ -14,10 +14,79 @@
     </nav>
   </div>
 
+  <!-- Filter Form -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title fw-semibold mb-3">Filter Pencarian Siswa</h5>
+      <form method="GET" action="{{ route('guru.siswa') }}">
+        <div class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label">Cari Siswa (Nama/NIS)</label>
+            <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Masukkan nama atau NIS">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Kelas</label>
+            <select class="form-select" name="kelas_id">
+              <option value="">Semua Kelas</option>
+              @foreach($kelas as $k)
+                <option value="{{ $k->id }}" {{ request('kelas_id') == $k->id ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Jurusan</label>
+            <select class="form-select" name="jurusan_id">
+              <option value="">Semua Jurusan</option>
+              @foreach($jurusan as $j)
+                <option value="{{ $j->id }}" {{ request('jurusan_id') == $j->id ? 'selected' : '' }}>{{ $j->nama_jurusan }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Jenis Kelamin</label>
+            <select class="form-select" name="jenis_kelamin">
+              <option value="">Semua</option>
+              <option value="L" {{ request('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+              <option value="P" {{ request('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Urutkan Berdasarkan</label>
+            <select class="form-select" name="sort_by">
+              <option value="nama" {{ request('sort_by') == 'nama' ? 'selected' : '' }}>Nama (A-Z)</option>
+              <option value="nis" {{ request('sort_by') == 'nis' ? 'selected' : '' }}>NIS</option>
+              <option value="poin" {{ request('sort_by') == 'poin' ? 'selected' : '' }}>Poin Pelanggaran</option>
+            </select>
+          </div>
+          <div class="col-md-1">
+            <label class="form-label">&nbsp;</label>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary btn-sm">
+                <i class="ti ti-search"></i>
+              </button>
+              <a href="{{ route('guru.siswa') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="ti ti-refresh"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-body">
       <div class="d-flex align-items-center justify-content-between mb-4">
         <h5 class="card-title fw-semibold mb-0">Daftar Siswa</h5>
+        @if(request()->hasAny(['search', 'kelas_id', 'jurusan_id', 'jenis_kelamin', 'sort_by']))
+          <small class="text-muted">Filter aktif: 
+            @if(request('search')) Pencarian: "{{ request('search') }}" @endif
+            @if(request('kelas_id')) | Kelas: {{ $kelas->find(request('kelas_id'))->nama_kelas ?? '' }} @endif
+            @if(request('jurusan_id')) | Jurusan: {{ $jurusan->find(request('jurusan_id'))->nama_jurusan ?? '' }} @endif
+            @if(request('jenis_kelamin')) | JK: {{ request('jenis_kelamin') == 'L' ? 'Laki-laki' : 'Perempuan' }} @endif
+            @if(request('sort_by')) | Urut: {{ ucfirst(request('sort_by')) }} @endif
+          </small>
+        @endif
       </div>
 
       <div class="table-responsive">
@@ -63,7 +132,8 @@
                     <i class="ti ti-dots-vertical fs-6"></i>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('guru.siswa.show', $s->id) }}"><i class="ti ti-eye fs-4 me-2"></i>Detail</a></li>
+                    <li><a class="dropdown-item" href="{{ route('guru.siswa.show', $s->id) }}"><i class="ti ti-eye fs-4 me-2"></i>Detail & Grafik</a></li>
+                    <li><a class="dropdown-item" href="{{ route('guru.siswa.riwayat-pelanggaran', $s->id) }}"><i class="ti ti-history fs-4 me-2"></i>Riwayat Pelanggaran</a></li>
                   </ul>
                 </div>
               </td>

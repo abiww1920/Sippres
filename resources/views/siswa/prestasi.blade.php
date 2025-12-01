@@ -33,7 +33,7 @@
             @foreach($prestasi as $index => $item)
             <tr>
               <td>{{ $index + 1 }}</td>
-              <td>{{ $item->tanggal ? $item->tanggal->format('d/m/Y') : '-' }}</td>
+              <td>{{ $item->tanggal ? date('d/m/Y', strtotime($item->tanggal)) : '-' }}</td>
               <td>{{ $item->nama_prestasi ?? '-' }}</td>
               <td>
                 <span class="badge bg-info">{{ ucfirst($item->tingkat ?? '-') }}</span>

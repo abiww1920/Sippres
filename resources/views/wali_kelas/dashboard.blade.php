@@ -189,7 +189,7 @@
                             <i class="mdi mdi-circle bg-success-lighten text-success timeline-icon"></i>
                             <div class="timeline-item-info">
                                 <h5 class="mt-0 mb-1">{{ $prestasi->siswa->nama_siswa }}</h5>
-                                <p class="font-14">{{ $prestasi->jenisPrestasi->nama_prestasi ?? 'N/A' }}</p>
+                                <p class="font-14">{{ $prestasi->nama_prestasi ?? 'N/A' }}</p>
                                 <p class="text-muted font-12 mb-0">{{ $prestasi->created_at->diffForHumans() }}</p>
                             </div>
                         </div>

@@ -36,6 +36,7 @@
               <th><h6 class="fs-4 fw-semibold mb-0">Jenis Sanksi</h6></th>
               <th><h6 class="fs-4 fw-semibold mb-0">Tanggal</h6></th>
               <th><h6 class="fs-4 fw-semibold mb-0">Status</h6></th>
+              <th><h6 class="fs-4 fw-semibold mb-0">Aksi</h6></th>
             </tr>
           </thead>
           <tbody>
@@ -51,21 +52,29 @@
                 </div>
               </td>
               <td><p class="mb-0 fw-normal fs-4">{{ $s->pelanggaran->siswa->kelas->nama_kelas }}</p></td>
-              <td><p class="mb-0 fw-normal fs-4">{{ $s->jenisSanksi->nama_sanksi }}</p></td>
+              <td><p class="mb-0 fw-normal fs-4">{{ $s->jenisSanksi->nama_sanksi ?? $s->jenis_sanksi }}</p></td>
               <td><p class="mb-0 fw-normal fs-4">{{ $s->created_at->format('d M Y') }}</p></td>
               <td>
-                @if($s->pelaksanaanSanksi && $s->pelaksanaanSanksi->status == 'selesai')
+                @php
+                  $pelaksanaan = $s->pelaksanaanSanksi->first();
+                @endphp
+                @if($pelaksanaan && $pelaksanaan->status == 'selesai')
                   <span class="badge bg-success-subtle text-success">Selesai</span>
-                @elseif($s->pelaksanaanSanksi && $s->pelaksanaanSanksi->status == 'proses')
+                @elseif($pelaksanaan && $pelaksanaan->status == 'proses')
                   <span class="badge bg-warning-subtle text-warning">Dalam Proses</span>
                 @else
                   <span class="badge bg-danger-subtle text-danger">Belum Dilaksanakan</span>
                 @endif
               </td>
+              <td>
+                <a href="{{ route('walikelas.sanksi.show', $s->id) }}" class="btn btn-primary btn-sm">
+                  <i class="ti ti-eye"></i> Detail
+                </a>
+              </td>
             </tr>
             @empty
             <tr>
-              <td colspan="6" class="text-center py-4">
+              <td colspan="7" class="text-center py-4">
                 <span class="text-muted">Tidak ada data sanksi</span>
               </td>
             </tr>

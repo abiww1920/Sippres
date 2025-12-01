@@ -128,6 +128,7 @@ Route::middleware('auth')->group(function () {
         // Siswa
         Route::get('/guru/siswa', [\App\Http\Controllers\Guru\SiswaController::class, 'index'])->name('guru.siswa');
         Route::get('/guru/siswa/{id}', [\App\Http\Controllers\Guru\SiswaController::class, 'show'])->name('guru.siswa.show');
+        Route::get('/guru/siswa/{id}/riwayat-pelanggaran', [\App\Http\Controllers\Guru\SiswaController::class, 'riwayatPelanggaran'])->name('guru.siswa.riwayat-pelanggaran');
     });
     
     Route::middleware('role:konselor')->group(function () {
@@ -163,6 +164,11 @@ Route::middleware('auth')->group(function () {
         
         // Monitoring Sanksi
         Route::get('/walikelas/sanksi', [\App\Http\Controllers\WaliKelas\SanksiController::class, 'index'])->name('walikelas.sanksi');
+        Route::get('/walikelas/sanksi/{id}', [\App\Http\Controllers\WaliKelas\SanksiController::class, 'show'])->name('walikelas.sanksi.show');
+        
+        // Monitoring Alert
+        Route::get('/walikelas/monitoring', [\App\Http\Controllers\WaliKelas\MonitoringController::class, 'index'])->name('walikelas.monitoring');
+        Route::get('/walikelas/monitoring/{id}', [\App\Http\Controllers\WaliKelas\MonitoringController::class, 'detail'])->name('walikelas.monitoring.detail');
         
         // Export Laporan - sesuai privilege PDF
         Route::get('/walikelas/laporan', [\App\Http\Controllers\WaliKelas\LaporanController::class, 'index'])->name('walikelas.laporan');
@@ -185,7 +191,7 @@ Route::middleware('auth')->group(function () {
     
     Route::middleware('role:siswa')->group(function () {
         Route::get('/siswa/dashboard', [SiswaDashboard::class, 'index'])->name('siswa.dashboard');
-        Route::get('/siswa/profile', [SiswaDashboard::class, 'profile'])->name('siswa.profile');
+        Route::get('/siswa/profile', [\App\Http\Controllers\Siswa\ProfileController::class, 'index'])->name('siswa.profile');
         Route::get('/siswa/pelanggaran', [SiswaDashboard::class, 'pelanggaran'])->name('siswa.pelanggaran');
         Route::get('/siswa/prestasi', [SiswaDashboard::class, 'prestasi'])->name('siswa.prestasi');
         
@@ -199,6 +205,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/ortu/pelanggaran', [OrtuDashboard::class, 'pelanggaran'])->name('ortu.pelanggaran');
         Route::get('/ortu/prestasi', [OrtuDashboard::class, 'prestasi'])->name('ortu.prestasi');
         Route::get('/ortu/profil', [OrtuDashboard::class, 'profil'])->name('ortu.profil');
+        Route::get('/ortu/notifikasi', [OrtuDashboard::class, 'notifikasi'])->name('ortu.notifikasi');
         
         // Laporan
         Route::get('/ortu/laporan', [\App\Http\Controllers\Ortu\LaporanController::class, 'index'])->name('ortu.laporan');

@@ -78,6 +78,13 @@
               </a>
             </li>
             
+            <li class="sidebar-item">
+              <a class="sidebar-link {{ request()->routeIs('ortu.notifikasi') ? 'active' : '' }}" href="{{ route('ortu.notifikasi') }}">
+                <span><i class="ti ti-bell"></i></span>
+                <span class="hide-menu">Notifikasi</span>
+              </a>
+            </li>
+            
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Laporan</span>
